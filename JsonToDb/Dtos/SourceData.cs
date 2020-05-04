@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace JsonToDb.Dtos
+﻿namespace JsonToDb.Dtos
 {
     public class SourceData
     {

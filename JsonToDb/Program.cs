@@ -18,7 +18,8 @@ namespace JsonToDb
 
             await migrationService.ApplyMigrations();
 
-            SourceData data = await fetchService.FetchDataFromUrl("https://opendata.ecdc.europa.eu/covid19/casedistribution/json/");
+            SourceData data = await fetchService
+                .FetchDataFromUrl("https://opendata.ecdc.europa.eu/covid19/casedistribution/json/");
 
             var countries = mapService.GetCountriesFromSourceData(data);
 
