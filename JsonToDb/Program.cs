@@ -29,13 +29,23 @@ namespace JsonToDb
 
             await dbWriteService.SaveData(dailyData);
 
-            var countriesFromDb = await dbReadService.GetCoutriesAsync();
+            var countriesFromDb = await dbReadService.GetTopTenCoutriesAsync();
 
             int i = 0;
             Console.WriteLine(string.Format("{0,5}. {1,-50}{2,-20}{3}","Lp", "Państwo","Zachorowania", "Zgony"));
             foreach(var country in countriesFromDb)
             {
-                Console.WriteLine(string.Format("{0,5}. {1,-50}{2,-20}{3}", ++i, country.Name, country.DailyDataCollection?.Sum(x => x.Cases), country.DailyDataCollection?.Sum(x => x.Deaths)));//.Replace(' ', '_'));
+                Console.WriteLine(string.Format("{0,5}. {1,-50}{2,-20}{3}", ++i, country.Name, country.TotalCases, country.TotalDeaths));
+            }
+            Console.WriteLine("\n\n");
+
+            var worstDaysFromDb = await dbReadService.GetWorstDaysAsync();
+
+            i = 0; 
+            Console.WriteLine(string.Format("{0,5}. {1,-50}{2,-20}{3}", "Lp", "Państwo", "Dzień", "Zgony"));
+            foreach (var day in worstDaysFromDb)
+            {
+                Console.WriteLine(string.Format("{0,5}. {1,-50}{2,-20}{3}", ++i, day.Country, day.Date.ToString("dd.MM.yyyy"), day.Deaths));
             }
 
 
